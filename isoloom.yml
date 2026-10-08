@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# ThinkPHP 5.0.23 Request Method RCE (Vulhub, by phith0n and the Vulhub contributors) as an Isoloom spec:
+# Vulhub's thinkphp/5.0.23-rce, vendored in app/, run from the published image vulhub/thinkphp:5.0.23.
+# `isoloom generate`, then `isoloom run docker`.
+version: 1
+name: vulhub-thinkphp-5-0-23-rce
+
+networks:
+  lab: { cidr: 10.61.25.0/24, internet: false }
+
+machines:
+  web:
+    networks: { lab: 10 }
+    services: [{ port: 80, name: web, http: true, publish: 8080 }]
+    resources: { cpus: 1, memory_mb: 256 }
+    docker:
+      image: vulhub/thinkphp:5.0.23
+
+checks:
+  - name: the ThinkPHP site answers
+    http: http://web/
+    wait: 60
+  - name: the default page is ThinkPHP 5's
+    script: checks/thinkphp.sh
+    wait: 30
+
+message: |
+  ThinkPHP 5.0.23 answers at http://localhost:{{ machines.web.services.0.publish }}/.
+  How does the Request class decide which method it is handling?
