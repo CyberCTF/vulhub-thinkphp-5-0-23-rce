@@ -45,7 +45,7 @@ provider "google" {
 # A project of its own when none is given: everything goes when the environment is destroyed.
 resource "google_project" "env" {
   count               = var.project == "" ? 1 : 0
-  name                = "isoloom-vulhub-thinkphp-5-0-23-rce"
+  name                = "isoloom-vulhub-thinkphp-5-0-23"
   project_id          = "isoloom-${terraform_data.id.output}"
   billing_account     = var.billing_account
   org_id              = var.org_id == "" ? null : var.org_id
