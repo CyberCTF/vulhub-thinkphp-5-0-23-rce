@@ -1,0 +1,63 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Read the flag",
+      "prompt": "Use the request method override flaw to run a command on the ThinkPHP server and read /ctf/flag.",
+      "check": {
+        "evidence": "SECRET",
+        "format": "FLAG{%s}"
+      },
+      "dev": "FLAG{dev-vulhub-thinkphp-5-0-23-rce}",
+      "hints": [
+        "Look at how ThinkPHP 5.0's Request class decides which method it is handling, and which methods a request may name.",
+        "The flag is at /ctf/flag."
+      ],
+      "steps": [
+        {
+          "key": "version",
+          "title": "Identify the framework",
+          "prompt": "Which PHP framework, and which version, serves the site? (name and version)",
+          "check": {
+            "answer_regex": "(?i)thinkphp\\s*5\\.0\\.23"
+          }
+        },
+        {
+          "key": "parameter",
+          "title": "Find the parameter",
+          "prompt": "Which request parameter overrides the HTTP method? (parameter name)",
+          "check": {
+            "answer": [
+              "_method"
+            ]
+          }
+        },
+        {
+          "key": "class",
+          "title": "Find the class",
+          "prompt": "Which framework class handles that override? (class name)",
+          "check": {
+            "answer": [
+              "request",
+              "think\\request",
+              "think\\\\request"
+            ]
+          }
+        },
+        {
+          "key": "outcome",
+          "title": "Name the outcome",
+          "prompt": "What does the flaw give an attacker? (two words)",
+          "check": {
+            "answer": [
+              "code execution",
+              "remote code execution",
+              "rce",
+              "command execution"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

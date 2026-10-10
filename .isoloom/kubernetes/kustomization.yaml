@@ -12,3 +12,4 @@ configMapGenerator:
   - name: isoloom-scripts
     files:
       - checks__thinkphp.sh=../../checks/thinkphp.sh
+      - ctf__flag.sh=../../ctf/flag.sh
