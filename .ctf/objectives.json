@@ -19,7 +19,7 @@
           "title": "Identify the framework",
           "prompt": "Which PHP framework, and which version, serves the site? (name and version)",
           "check": {
-            "answer_regex": "(?i)thinkphp\\s*5\\.0\\.23"
+            "answer_regex": "thinkphp\\s*5\\.0\\.23"
           }
         },
         {
